@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2014 The CyanogenMod Project
+# Copyright (C) 2013 The CyanogenMod Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,19 +14,14 @@
 # limitations under the License.
 #
 
-# overlays
-DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
+LOCAL_PATH := $(call my-dir)
+include $(CLEAR_VARS)
 
-# OnePlus Settings
-PRODUCT_PACKAGES += \
-    DeviceParts \
-    com.oneplus.keyhandler
+LOCAL_SRC_FILES := $(call all-java-files-under, src)
+LOCAL_CERTIFICATE := platform
+LOCAL_PRIVILEGED_MODULE := true
+LOCAL_PACKAGE_NAME := DeviceParts
+LOCAL_MODULE_TAGS := optional
+LOCAL_PRIVATE_PLATFORM_APIS := true
 
-PRODUCT_SYSTEM_SERVER_JARS += com.oneplus.keyhandler
-
-# Recovery
-PRODUCT_PACKAGES += \
-    librecovery_updater_oppo
-
-# Never dexopt the KeyHandler
-$(call add-product-dex-preopt-module-config, com.oneplus.keyhandler, disable)
+include $(BUILD_PACKAGE)
